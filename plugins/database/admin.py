@@ -46,11 +46,12 @@ async def broadcast_handler(client, message: Message):
         return
     
     broadcast_message = message.text.split(None, 1)[1]
-    total_users = await db.total_users_count()
+    total_users = 0
     sent_count = 0
     failed_count = 0
 
     async for user in db.get_all_users():
+        total_users += 1
         try:
             await client.send_message(chat_id=user['id'], text=broadcast_message)
             sent_count += 1
