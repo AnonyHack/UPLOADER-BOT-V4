@@ -7,6 +7,7 @@ import os
 from plugins.config import Config
 from pyrogram import Client
 from pyrogram.types import Message
+from pyrogram import filters
 from plugins.database.database import db  # Import database for user access
 
 if __name__ == "__main__" :
