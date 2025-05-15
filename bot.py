@@ -12,11 +12,11 @@ if __name__ == "__main__" :
     if not os.path.isdir(Config.DOWNLOAD_LOCATION):
         os.makedirs(Config.DOWNLOAD_LOCATION)
     plugins = dict(root="plugins")
-    Client = Client("@UploaderXNTBot",
-    bot_token=Config.BOT_TOKEN,
-    api_id=Config.API_ID,
-    api_hash=Config.API_HASH,
-    sleep_threshold=300,
-    plugins=plugins)
-    print("🎊 I AM ALIVE 🎊  • Support @NT_BOTS_SUPPORT")
-    Client.run()
+    app = Client("@Urluploader4GBbot",
+                 bot_token=Config.BOT_TOKEN,
+                 api_id=Config.API_ID,
+                 api_hash=Config.API_HASH,
+                 sleep_threshold=300,
+                 plugins=plugins)
+    print("🎊 I AM ALIVE 🎊  • Support @MEGAHUBBOTS")
+    app.run()
