@@ -37,3 +37,30 @@ async def status_handler(_, m: Message):
              f"**Total Users in DB:** `{total_users}`",
         quote=True
     )
+
+
+@Client.on_message(filters.command('broadcast') & filters.user(Config.OWNER_ID))
+async def broadcast_handler(client, message: Message):
+    if len(message.command) < 2:
+        await message.reply_text("Usage: /broadcast <message>", quote=True)
+        return
+    
+    broadcast_message = message.text.split(None, 1)[1]
+    total_users = await db.total_users_count()
+    sent_count = 0
+    failed_count = 0
+
+    async for user in db.get_all_users():
+        try:
+            await client.send_message(chat_id=user['id'], text=broadcast_message)
+            sent_count += 1
+        except Exception:
+            failed_count += 1
+
+    await message.reply_text(
+        text=f"Broadcast completed.\n\n"
+             f"**Total Users:** {total_users}\n"
+             f"**Messages Sent:** {sent_count}\n"
+             f"**Failed:** {failed_count}",
+        quote=True
+    )
