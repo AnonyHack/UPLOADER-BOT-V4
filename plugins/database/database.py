@@ -22,8 +22,9 @@ class Database:
         )
 
     async def add_user(self, id):
-        user = self.new_user(id)
-        await self.col.insert_one(user)
+        if not await self.is_user_exist(id):
+            user = self.new_user(id)
+            await self.col.insert_one(user)
 
     async def is_user_exist(self, id):
         user = await self.col.find_one({'id': int(id)})
@@ -34,7 +35,8 @@ class Database:
         return count
 
     async def get_all_users(self):
-        return self.col.find({})
+        async for user in self.col.find({}):
+            yield user
 
     async def delete_user(self, user_id):
         await self.col.delete_many({'id': int(user_id)})
