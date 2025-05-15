@@ -148,4 +148,14 @@ async def warn(c, m):
     else:
         await m.reply_text(text="You Are Not Admin 😡", quote=True)
 
+@Client.on_message(filters.command("broadcast", [".", "/"]) & filters.private)
+async def broadcast_info(_, m: Message):
+    if m.from_user.id != Config.OWNER_ID:
+        await m.reply_text("This command is restricted to the bot owner.", quote=True)
+        return
+    await m.reply_text(
+        text="Use `/broadcast <message>` to send a message to all users in the database. This command is only available to the bot owner.",
+        quote=True
+    )
+
 
